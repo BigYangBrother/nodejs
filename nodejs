@@ -42,3 +42,58 @@ npm install chalk：node包管理工具
 	exports相当于：const exports = module.exports
 	exports可以追加值，将它看为一个普通对象，引用类型不能更改值，想要更改值用module.exports
 }
+
+全局变量Global:CommonJS;Buffer;process;console;timer
+global.testVar = 200;//会将testVar变成全局变量
+{
+	setImmediate(() => {});//异步执行，可以简单理解为setTimeout/setInterval时间参数传零
+}
+
+process:{
+	const {argv, argv0, execArgv, execPath} = process;
+	//控制台打印时可以根据需求增加其他参数，默认输出第一条为node安装地址，第二条为该文件所在地址
+	argv.forEach(item => {
+		console.log(item)
+	})
+	//argv0就是argv第零个参数
+	//execArgv可以在node该文件前输入值并返回成一个数组输出
+	//execPath就是argv第一个参数
+
+	const {env} = process;
+	//里面的一些配置参数，如path(哪些可以不写路径)
+
+	process.cwd()
+	//将当前的路径打印出来，相当于Linux的pwd命令
+
+	process.nextTick(() => {});
+	//异步执行，可以类比global中的setImmediate,区别：process.nextTick比setImmediate先执行
+	//执行顺序process.nextTick(),setTimeout,setImmediate
+	//队列理解方式process.nextTick()相当于放在当前队列的队尾，而setImmediate相当于放在下一个队列的队首
+}
+
+debug:{
+	Inspector : node --inspect-brk 文件名  (brk让程序在执行时就停住)
+	VS Code
+}
+
+内置api:
+1,path:{
+	path.normalize()：path.normalize() 方法会规范化给定的 path，并解析 '..' 和 '.' 片段。比如前台传来的路径和想要的格式有略微差别，不需要手动处理直接调用就可以了
+	path.join()：将路径进行拼接，如果路径不规范会自动调用normalize进行规范化
+	path.resolve()：看绝对路径，比如看当前路径的绝对路径path.resolve('./')
+	path.basename()：返回path的最后一部分
+	path.dirname()：返回path的目录名
+	path.extname()：返回path的扩展名
+	path.parse()和path.format()：parse可以把path的路径解析成root,dir,base,ext,name模式，而format用于还原成路径，用处举例，用parse拆解后改了某一部分的值，在用format拼接回来
+	//注：如果提供了dir,root会被忽略;如果提供了base,ext和name会被忽略。
+	path.sep,path.delimiter:路径分隔符
+	path.win32和path.posix
+	_dirname,_filrname总是返回文件的绝对路径；process.cwd()总是返回执行node命令所在的文件夹
+	./在require方法中总是相对当前文件所在文件夹，其他地方和process.cwd()一样，相对node启动文件夹
+}
+
+2,Buffer:全局变量{
+	Buffer用于处理二进制数据流
+	实例类似整数数组，大小固定
+	C++代码在V8堆外分配物理内存
+}
