@@ -143,5 +143,56 @@ debug:{
 4,fs:require('fs'){
 	fs.readFile('./main.js', 'utf8', (err, data) => {})
 	fs.readFileSync('./main.js', 'utf8')//同步
-	
+	//尽量少用同步，异步是nodejs优势
+
+	写文件：{
+		const fs = require('fs')
+		fs.writeFile('.text', 'This is a text !', {
+			encoding: 'utf8'
+		}, err => {
+			if (err) throw err;
+			console.log('done');
+		})
+	}
+
+	stat:时间值{
+		atime:访问时间
+		mtime:修改时间
+		ctime:变化时间
+		birthtime:创建时间
+	}
+
+	fs.rename:修改文件名
+	fs.unlink:删除
+	fs.readdir
+	fs.mkdir
+	fs.rmdir
+
+	文件监听:{
+		const fs = require('fs')
+		fs.watch('./', {
+			recursive: true
+		}, (eventType, filename) => {
+			console.log(eventType, filename)
+		})
+	}
+
+	//一点点吐给我们，而不是一次性给我们(如视频的加载，看一点缓存一点释放一点)
+	{
+		const fs = require('fs')
+		const rs = fs.createReadStream('./main.js')
+		rs.pipe(process.stdout)
+	}
+
+	解决回调地狱：{
+		1,promise
+		2,{
+				async function test() {
+					try {
+						const content = await read('./main.js');
+					} 
+					catch(ex) {}
+				}
+			}
+	}
 }
