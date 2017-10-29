@@ -96,4 +96,52 @@ debug:{
 	Buffer用于处理二进制数据流
 	实例类似整数数组，大小固定
 	C++代码在V8堆外分配物理内存
+
+	0x:表示16进制
+
+	Buffer.alloc(size,fill)
+	//size:指定Buffer初始化长度;fill:填充元素
+	Buffer.from(类型,编码)
+	//通过数组/字符串形式创建一个新的Buffer，可以指定编码规则，默认UTF-8
+
+	Buffer.byteLength():看一个字符串占了多少个字节
+	//一个中文占3个字节
+	Buffer.isBuffer():看一个对象是否是Buffer对象
+	Buffer.concat(array):拼接Buffer
+
+	buf.length:返回buf在字节数上分配的内存量。注意,这并不一定反映buf内可用的数据量
+	//虽然length属性不是不可变的，但改变length的值可能会导致不确定、不一致的行为。那些希望修改一个Buffer的长度的应用程序应当将length视为只读的，且使用buf.slice()创建一个新的Buffer。
+	buf.toString('编码'):默认UTF-8
+	buf.fill():对Buffer进行填充，参数与es6 fill一致
+	buf.equals()
+	buf.indexOf()
+
+	因为一个中文是三个字节，假如按照五个拆分，会出现乱码：
+	{
+		const StringDecoder = require('string_decoder').StringDecoder;
+		const decoder = new StringDecoder('utf8')
+	}
+}
+
+3,events:require(events){
+	{
+		const EventEmitter = require('events');
+		class CustomEvent extends EventEmitter {};
+		const ce = new CustomEvent();
+		ce.on('error', err => {
+			console.log(err);
+		});
+		ce.emit('error', new Error('oops!'));
+	}
+
+	emitter.once:添加一个单次的listener函数
+
+	emitter.removeListener('想移除哪个事件的',想移除谁)
+	emitter.removeAllListener('事件名')
+}
+
+4,fs:require('fs'){
+	fs.readFile('./main.js', 'utf8', (err, data) => {})
+	fs.readFileSync('./main.js', 'utf8')//同步
+	
 }
