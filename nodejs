@@ -206,6 +206,25 @@ debug:{
 	**表示匹配多级目录
 }
 
+缓存：{
+	用户请求->本地缓存->{
+		no:请求资源->协商缓存，返回响应
+		yes:client失效->{
+			no:本地缓存
+			yes:server未改变->{
+				no:协商缓存，返回相应
+				yes:304
+			}
+		}
+	}
+
+	缓存Header:{
+		Cache-Control:返回的是一个相对时间，相对于你上次请求的时间
+		If-Modified-Since/Last-Modified
+		If-None-Match/ETag
+	}
+}
+
 零散： {
 	http：最后一定要调用一下end
 
@@ -218,4 +237,6 @@ debug:{
 	npm init:生成package.json
 
 	在处理路径相关时尽量使用绝对路径
+
+	请求范围ra
 }
