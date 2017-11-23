@@ -245,4 +245,12 @@ debug:{
 express: {
 	全局安装：npm install -g express-generator
 	建项目：express 项目名
+
+	基于express开发商品列表查询接口
+	{
+		1,安装Mongoose
+		2,创建model
+		3,创建路由
+		4,基于Mongoose实现商品列表的查询功能
+	}
 }
