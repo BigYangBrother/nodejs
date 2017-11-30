@@ -272,3 +272,12 @@ mongoose连接MongoDB
 		console.log("MongoDB connected disconnected");
 	});
 }
+
+http.createServer(req, res => {
+	//该函数用来创建一个HTTP服务器
+	//req:request(请求)
+	//res:response(响应)
+	res.statusCode = 200//设置状态码
+	res.setHeader('content-type', 'text/html')//设置请求头的文件类型
+	res.end(主页)//用end结束 
+}).listen(3000, () => {})
